@@ -27,6 +27,6 @@ or command line::
 
     $: python uscpi/__init__.py [filename]
 
-The command line version will output a CSV file of the latest US Consumer Price Index, taken from the _this site: http://www.bls.gov/cpi/#tables.
+The command line version will output a CSV file of the latest US Consumer Price Index, taken from the this site: http://www.bls.gov/cpi/#tables
 
 This tool also comes with an inflation calculator as demonstrated in the python example above.
