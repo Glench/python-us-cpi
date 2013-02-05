@@ -125,7 +125,7 @@ if __name__ == '__main__':
     try:
         filename = sys.argv[1]
     except IndexError:
-        filename = 'us_cpi.csv'
+        filename = 'us_cpi_{}.csv'.format(datetime.date.today().isoformat())
     print 'Downloading file...'
     cpi = UsCpi()
     cpi.as_csv(filename)
