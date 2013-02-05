@@ -11,7 +11,7 @@ def in_range(value, smallest, largest):
 
 def assert_in_range(value, smallest, largest, name):
     assert in_range(value, smallest, largest), '{} ({}) must be in range {}-{}' \
-        .format(value, smallest, largest)
+        .format(name, value, smallest, largest)
 
 class UsCpi(object):
     """Tools for manipulating the US CPI (all urban consumers)."""
