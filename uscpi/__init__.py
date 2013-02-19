@@ -100,16 +100,12 @@ class UsCpi(object):
         """
         base_cpi = self.cpi_for_year(base_year)
         inflation_cpi = self.cpi_for_year(inflation_year)
-        percent = abs(inflation_cpi - base_cpi) / base_cpi
-        if percent > 1:
-            return 1 + percent
-        else:
-            return 1 - percent
+        return inflation_cpi / base_cpi
 
     def value_with_inflation(self, base_amount, base_year, inflation_year=None):
         """
-        Returns how much <base_amount> in <base_year> is worth in
-        <inflation_year> (default is last year in data).
+        Returns the purchasing power of <base_mount> (from <base_year)
+        in <inflation_year> (default is last year in data).
         """
         inflation_year = inflation_year or self.last_year
 
