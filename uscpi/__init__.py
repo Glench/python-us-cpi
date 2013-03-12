@@ -77,11 +77,11 @@ class UsCpi(object):
                 self.normalized_years[int(row[0])] = Decimal(row[-3])
         self.last_year = int(row[0])
 
-    def as_csv(self, path):
+    def as_csv(self, outfile_path):
         """
         Write the csv data to a given file.
         """
-        with open(path, 'wb') as csv_outfile:
+        with open(outfile_path, 'wb') as csv_outfile:
             shutil.copyfileobj(self.csv_file, csv_outfile)
 
     def cpi_for_year(self, year):
