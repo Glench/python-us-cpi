@@ -13,6 +13,9 @@ def assert_in_range(value, smallest, largest, name):
     assert in_range(value, smallest, largest), '{} ({}) must be in range {}-{}' \
         .format(name, value, smallest, largest)
 
+def average(some_list):
+    return sum(some_list) / len(some_list)
+
 class UsCpi(object):
     """Tools for manipulating the US CPI (all urban consumers)."""
     url = 'ftp://ftp.bls.gov/pub/special.requests/cpi/cpiai.txt'
@@ -73,8 +76,16 @@ class UsCpi(object):
             if i != 0:
                 # create index of year -> avg cpi for that year
                 if i == 1:
+                    # mark first year of data
                     self.first_year = int(row[0])
-                self.normalized_years[int(row[0])] = Decimal(row[-3])
+                try:
+                    self.normalized_years[int(row[0])] = Decimal(row[-3])
+                except IndexError:
+                    # if there isn't an average for the year yet, average the
+                    # data that we have so far for the year
+                    self.normalized_years[int(row[0])] = \
+                        average([Decimal(cpi) for cpi in row[1:12]])
+        # mark last year of data
         self.last_year = int(row[0])
 
     def as_csv(self, outfile_path):
@@ -106,6 +117,10 @@ class UsCpi(object):
         """
         Returns the purchasing power of <base_mount> (from <base_year)
         in <inflation_year> (default is last year in data).
+
+        Uses averages over years to calculate. If it's the middle of the year
+        and there isn't CPI data for all months, will calculate an average for
+        the year so far.
         """
         inflation_year = inflation_year or self.last_year
 
