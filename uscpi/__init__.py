@@ -54,7 +54,7 @@ class UsCpi(object):
 
     def raw_to_csv(self, raw_file):
         """
-        Convert the raw text file to a CSV.
+        Convert the raw text file to a CSV file and return it.
         """
         csv_file = tempfile.NamedTemporaryFile()
         csv_writer = csv.writer(csv_file)
@@ -64,9 +64,9 @@ class UsCpi(object):
                 with_commas = self.raw_separator_re.sub(r'\1,\3', line).strip()
                 csv_file.write(with_commas)
                 csv_file.write('\n')
-        read_mode_csv_file = open(csv_file.name, 'r')
-        csv_file.close()
-        return read_mode_csv_file
+        # cursor is at the end of the file, move it back to beginning
+        csv_file.seek(0)
+        return csv_file
 
     def process_csv(self, csv_file):
         """
@@ -88,6 +88,8 @@ class UsCpi(object):
                         average([Decimal(cpi) for cpi in row[1:12]])
         # mark last year of data
         self.last_year = int(row[0])
+        # cursor is at the end of the file, move it back to beginning
+        csv_file.seek(0)
 
     def as_csv(self, outfile_path):
         """
@@ -95,6 +97,8 @@ class UsCpi(object):
         """
         with open(outfile_path, 'wb') as csv_outfile:
             shutil.copyfileobj(self.csv_file, csv_outfile)
+            # cursor is at the end of the file, move it back to beginning
+            self.csv_file.seek(0)
 
     def cpi_for_year(self, year):
         """
