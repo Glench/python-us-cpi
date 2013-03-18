@@ -79,7 +79,8 @@ class UsCpi(object):
                     # mark first year of data
                     self.first_year = int(row[0])
                 try:
-                    self.normalized_years[int(row[0])] = Decimal(row[-3])
+                    # this uses the government's CPI average for the year
+                    self.normalized_years[int(row[0])] = Decimal(row[13])
                 except IndexError:
                     # if there isn't an average for the year yet, average the
                     # data that we have so far for the year
