@@ -120,12 +120,13 @@ class UsCpi(object):
 
     def value_with_inflation(self, base_amount, base_year, inflation_year=None):
         """
-        Returns the purchasing power of <base_mount> (from <base_year)
-        in <inflation_year> (default is last year in data).
+        Returns the purchasing power of <base_amount> (from <base_year>)
+        in <inflation_year> (default is last year in data, likely the current
+        year).
 
         Uses averages over years to calculate. If it's the middle of the year
-        and there isn't CPI data for all months, will calculate an average for
-        the year so far.
+        and there isn't CPI data for all months, will use a calculated average
+        for the year so far.
         """
         inflation_year = inflation_year or self.last_year
 
