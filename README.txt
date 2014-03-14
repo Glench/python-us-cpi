@@ -2,6 +2,8 @@
 python-us-cpi
 =============
 
+THIS LIBRARY NO LONGER WORKS. Apparently the Bureau of Labor Statistics changed their site after August 2013 and this library no longer works. I don't know if or when I'll have a chance to fix it.
+
 Tools for parsing the latest US Consumer Price Index
 
 To install::
